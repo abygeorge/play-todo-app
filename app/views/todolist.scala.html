@@ -1,0 +1,38 @@
+@(tasks: List[Todo], todoForm: Form[Todo])(implicit requestHeader: MessagesRequestHeader)
+
+@import helper._
+@import views.html.helper._
+
+@main("Todo list") {
+
+    <h2>Add a new task</h2>
+
+    @form(routes.HomeController.createlist) {
+        @CSRF.formField
+        <label>To Do Task</label>
+        <input type="text" name="label"></br>
+        <label>To Do Date</label>
+        <input type="date" name="todo_date"></br>
+        <input type="submit" value="Create">
+    }
+
+    <h1>@tasks.size task(s)</h1>
+
+    <table style="width:100%">
+        <thead>
+            <tr>
+                <th>Task</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+        @tasks.map { task =>
+            <tr>
+                <td>@task.label</td>
+                <td>@task.todo_date</td>
+            </tr>
+         }
+        </tbody>
+    </table>
+
+}
